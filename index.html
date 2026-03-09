@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Y. Samantha Pérez-Dávila | Policy Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #1a1714;
+      --ink-soft: #4a453f;
+      --ink-faint: #8a837a;
+      --paper: #f5f2ed;
+      --paper-warm: #ede8e0;
+      --paper-card: #faf8f5;
+      --accent: #8b3a2a;
+      --accent-light: #c4705e;
+      --accent-pale: #f0e4e0;
+      --rule: #d4cdc4;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAVIGATION ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(245, 242, 237, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 48px;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      padding-top: 56px;
+      background: var(--paper);
+    }
+    .hero-left {
+      background: var(--paper);
+      padding: 56px 36px;
+      display: flex; flex-direction: column; align-items: center;
+      border-right: 1px solid var(--rule);
+      position: sticky; top: 56px; height: calc(100vh - 56px);
+      justify-content: center; overflow-y: auto;
+    }
+    .photo-frame {
+      width: 180px; height: 220px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.2s forwards;
+    }
+    .photo-frame img, .photo-placeholder {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 2px;
+    }
+    .photo-placeholder {
+      background: linear-gradient(145deg, #e0d9d0 0%, #cec6bb 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif);
+      font-size: 48px;
+      color: rgba(90,80,70,0.35);
+      border-radius: 2px;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--ink);
+      text-align: center;
+      margin-bottom: 5px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+    .hero-title {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--ink-faint);
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+    .hero-contact-divider {
+      width: 28px; height: 1px;
+      background: var(--rule); margin: 10px auto 16px;
+    }
+    .hero-social {
+      display: flex; flex-direction: column; gap: 4px; width: 100%;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.5s forwards;
+    }
+    .hero-social a {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      padding: 5px 8px;
+      border-radius: 3px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .hero-social a:hover { background: var(--paper-warm); color: var(--accent); }
+    .hero-social a svg { width: 13px; height: 13px; flex-shrink: 0; opacity: 0.45; }
+    .cv-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 14px; width: 100%;
+      padding: 9px 20px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.6s forwards;
+    }
+    .cv-btn:hover { background: #722e20; transform: translateY(-1px); }
+    .cv-btn svg { width: 12px; height: 12px; }
+
+    .hero-right {
+      background: var(--paper);
+      padding: 80px 72px;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+    .hero-about-title {
+      font-family: var(--serif);
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 28px;
+      line-height: 1.15;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.3s forwards;
+    }
+    .hero-bio {
+      font-size: 15.5px;
+      line-height: 1.85;
+      color: var(--ink-soft);
+      font-weight: 300;
+      max-width: 580px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+    .hero-bio strong { color: var(--ink); font-weight: 500; }
+    .hero-affiliations {
+      display: flex; flex-direction: column; gap: 10px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.5s forwards;
+    }
+    .affil-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-soft);
+    }
+    .affil-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── SECTION SHELL ──────────────────────────────────── */
+    section { padding: 96px 0; }
+    .container { max-width: 1060px; margin: 0 auto; padding: 0 48px; }
+    .section-header {
+      display: flex; align-items: baseline; gap: 20px;
+      margin-bottom: 56px;
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .section-rule {
+      flex: 1; height: 1px;
+      background: var(--rule);
+    }
+
+    /* ── RESEARCH ───────────────────────────────────────── */
+    #research { background: var(--paper-card); }
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .research-card {
+      background: var(--paper);
+      padding: 36px 32px;
+      border-top: 3px solid transparent;
+      transition: border-color 0.25s, transform 0.2s;
+      position: relative;
+    }
+    .research-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .research-icon {
+      font-size: 28px;
+      margin-bottom: 18px;
+      display: block;
+    }
+    .research-card h3 {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .research-card p {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    .dissertation-banner {
+      margin-top: 48px;
+      background: var(--accent-pale);
+      border-left: 4px solid var(--accent);
+      padding: 32px 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px;
+    }
+    .dissertation-banner h3 {
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .dissertation-banner p {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-style: italic;
+      color: var(--ink);
+      font-weight: 400;
+    }
+    .dissertation-banner span {
+      font-size: 12px;
+      color: var(--ink-faint);
+      font-weight: 300;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── PUBLICATIONS ───────────────────────────────────── */
+    #publications { background: var(--paper); }
+    .pub-filter {
+      display: flex; gap: 4px; margin-bottom: 40px;
+    }
+    .pub-filter button {
+      padding: 7px 18px;
+      font-family: var(--sans);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1px solid var(--rule);
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pub-filter button.active,
+    .pub-filter button:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #f5f2ed;
+    }
+    .pub-list { display: flex; flex-direction: column; gap: 0; }
+    .pub-item {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      align-items: start;
+      transition: opacity 0.25s;
+    }
+    .pub-year {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-faint);
+      padding-top: 3px;
+    }
+    .pub-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      background: var(--accent-pale);
+      color: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 8px;
+    }
+    .pub-badge.report { background: #e8f0e8; color: #3a6b3a; }
+    .pub-badge.forthcoming { background: #fff4e0; color: #8a5e00; }
+    .pub-title {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .pub-authors {
+      font-size: 13px;
+      color: var(--ink-soft);
+      font-weight: 300;
+      margin-bottom: 4px;
+    }
+    .pub-authors strong { font-weight: 500; color: var(--ink); }
+    .pub-journal {
+      font-size: 13px;
+      color: var(--ink-faint);
+    }
+    .pub-item.hidden { display: none; }
+
+    /* ── POLICY WORK ────────────────────────────────────── */
+    #policy { background: var(--paper-warm); }
+    .affil-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .affil-card {
+      background: var(--paper-card);
+      padding: 36px;
+      border-left: 3px solid var(--accent);
+    }
+    .affil-card h3 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .affil-card .role {
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .affil-card p {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    .affil-card .dates {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-faint);
+      margin-top: 14px;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .project-tag {
+      background: var(--paper-card);
+      border: 1px solid var(--rule);
+      padding: 14px 16px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      font-weight: 300;
+    }
+    .project-tag strong {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    /* ── TEACHING ────────────────────────────────────────── */
+    #teaching { background: var(--paper-card); }
+    .teaching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .teaching-block h3 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .course-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--paper-warm);
+    }
+    .course-title {
+      font-size: 14.5px;
+      font-weight: 400;
+      margin-bottom: 3px;
+    }
+    .course-meta {
+      font-size: 12.5px;
+      color: var(--ink-faint);
+      font-family: var(--mono);
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--paper-warm);
+      border-top: 1px solid var(--rule);
+      padding: 40px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-name {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink-soft);
+      font-style: italic;
+    }
+    .footer-links {
+      display: flex; gap: 28px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── ANIMATIONS ─────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { position: static; height: auto; padding: 60px 32px; border-right: none; border-bottom: 1px solid var(--rule); }
+      .hero-right { padding: 60px 32px; }
+      .research-grid { grid-template-columns: 1fr; }
+      .affil-grid { grid-template-columns: 1fr; }
+      .teaching-grid { grid-template-columns: 1fr; }
+      .project-grid { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+      .container { padding: 0 24px; }
+      .dissertation-banner { flex-direction: column; }
+      footer { flex-direction: column; gap: 20px; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .project-grid { grid-template-columns: 1fr; }
+      .pub-item { grid-template-columns: 1fr; gap: 8px; }
+      .pub-year { padding-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#hero" class="nav-name">S. Pérez-Dávila</a>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#policy">Policy Work</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="photo-frame">
+        <img src="photo.jpeg" alt="Y. Samantha Pérez-Dávila" />
+      </div>
+      <p class="hero-name">Y. Samantha<br>Pérez-Dávila</p>
+      <p class="hero-title">Ph.D. Candidate · Policy Researcher</p>
+      <div class="hero-contact-divider"></div>
+      <div class="hero-social">
+        
+        <a href="https://www.linkedin.com/in/samantha-perez-davila/" target="_blank">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://scholar.google.com/citations?user=JkbK9OYAAAAJ" target="_blank">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0L1 4v1h1v7H1v1h14v-1h-1V5h1V4L8 0zM4 12V5h2v7H4zm3 0V5h2v7H7zm3 0V5h2v7h-2z"/></svg>
+          Google Scholar
+        </a>
+        <a href="https://orcid.org/0000-0003-1542-5776" target="_blank">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM5.1 4.6H4V12h1.1V4.6zm-.55-1.8a.7.7 0 1 1 0 1.4.7.7 0 0 1 0-1.4zM8 4.5h2.6c2 0 3.4 1.3 3.4 3.75S12.6 12 10.6 12H8V4.5zm1.1 1v5.5h1.4c1.4 0 2.3-.9 2.3-2.75S11.9 5.5 10.5 5.5H9.1z"/></svg>
+          ORCID
+        </a>
+        <a href="https://www.rand.org/about/people/p/perez_davila_samantha.html" target="_blank">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="6" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+          RAND Profile
+        </a>
+      </div>
+      <a href="Samantha_Perez_Davila_Academic_CV.docx" class="cv-btn">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v9M4 7l4 4 4-4M2 13h12"/></svg>
+        Download CV
+      </a>
+    </div>
+    <div class="hero-right">
+      <span class="hero-eyebrow">About me</span>
+      <h1 class="hero-about-title">Drug Policy, Illicit Markets<br>& Organized Crime</h1>
+      <p class="hero-bio">
+        I am a <strong>Ph.D. candidate in Policy Analysis</strong> at the Pardee RAND Graduate School and an <strong>Assistant Policy Researcher</strong> at the RAND Corporation, where I also hold a fellowship at the <strong>Niskanen Center</strong>. My research focuses on illegal drug markets, organized crime, and the policies designed to address them, with particular attention to Mexico, California, and Latin America.
+        <br><br>
+        My dissertation examines the structure and economics of illegal cannabis markets through three empirical essays. More broadly, I combine field methods, econometrics, and mixed-methods approaches to produce rigorous, policy-relevant evidence on illicit economies, violence, drug policy reform, incarceration, and policing. Before joining RAND, I directed the Drug Policy Program at CIDE in Mexico, where I led research and coordinated a graduate diploma on drug policy, health, and human rights.
+        <br><br>
+        I also work as an independent <strong>monitoring and evaluation consultant</strong> for international development programs across the Caribbean, Central America, and Mexico, specializing in cost-benefit analysis, results frameworks, and mixed-methods evaluation design.
+      </p>
+      <div class="hero-affiliations">
+        <span class="affil-tag"><span class="affil-dot"></span>Ph.D. Candidate — Pardee RAND Graduate School (Expected 2026)</span>
+        <span class="affil-tag"><span class="affil-dot"></span>Assistant Policy Researcher — RAND Corporation</span>
+        <span class="affil-tag"><span class="affil-dot"></span>Research Fellow — Niskanen Center</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">01</span>
+        <h2 class="section-title">Research</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="research-grid">
+        <div class="research-card reveal">
+          <span class="research-icon">⚗</span>
+          <h3>Illicit Drug Markets</h3>
+          <p>Market size estimation, analysis of supply chain and market participants, and price dynamics in illegal cannabis in the US and Mexico. Dissertation work focuses on three mixed-methods essays on illegal cannabis market structure.</p>
+        </div>
+        <div class="research-card reveal">
+          <span class="research-icon">⚖</span>
+          <h3>Organized Crime & Violence</h3>
+          <p>Evolution, fragmentation, and territorial expansion of criminal organizations in Mexico. Geographic mapping of criminal group presence and its relationship to violence and state security responses.</p>
+        </div>
+        <div class="research-card reveal">
+          <span class="research-icon">⊕</span>
+          <h3>Program Evaluation & M&E</h3>
+          <p>Cost-benefit analysis, results frameworks, and mixed-methods evaluation design for labor market, trade facilitation, and social programs across the Caribbean, Central America, and Mexico.</p>
+        </div>
+        <div class="research-card reveal">
+          <span class="research-icon">♡</span>
+          <h3>Health Access & Equity</h3>
+          <p>Barriers to care for Spanish-speaking and Latino communities in the United States, including telehealth access, behavioral health services, and faith-based physical activity interventions.</p>
+        </div>
+        <div class="research-card reveal">
+          <span class="research-icon">⌖</span>
+          <h3>Security & Transnational Crime</h3>
+          <p>Security implications of drug trafficking and transnational organized crime, with a focus on the US and Mexico relationship, border dynamics, and the spillover effects of illicit economies on state institutions and civilian populations. Includes work on cross-border disaster response and how security crises are experienced inequitably across demographic groups.</p>
+        </div>
+      </div>
+      <div class="dissertation-banner reveal">
+        <div>
+          <h3>Doctoral Dissertation</h3>
+          <p>Three Essays on Illegal Cannabis Markets</p>
+        </div>
+        <span>Pardee RAND Graduate School · Expected June 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">02</span>
+        <h2 class="section-title">Publications</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="pub-filter reveal">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="journal">Journal Articles</button>
+        <button data-filter="report">Research Reports</button>
+      </div>
+      <div class="pub-list">
+
+        <div class="pub-item reveal" data-type="journal">
+          <span class="pub-year">Forthcoming</span>
+          <div>
+            <span class="pub-badge forthcoming">Forthcoming</span>
+            <p class="pub-title">Multilevel predictors of intervention uptake and post-intervention physical activity behaviors: Results from a faith-based multilevel physical activity intervention for Latino adults</p>
+            <p class="pub-authors">Perez LG, Seelam R, Cohen DA, Han B, Castro G, Arredondo E, <strong>Pérez-Dávila S</strong>, Derose KP.</p>
+            <p class="pub-journal">Journal of Physical Activity and Health</p>
+          </div>
+        </div>
+
+        <div class="pub-item reveal" data-type="journal">
+          <span class="pub-year">2025</span>
+          <div>
+            <span class="pub-badge">Journal Article</span>
+            <p class="pub-title">Historical and Contextual Variation in Daily Opioid Consumption Rates: Implications for Supply Control, Service Delivery, and Research</p>
+            <p class="pub-authors">Caulkins JP, <strong>Pérez-Dávila S</strong>, Kilmer B, Poser J, Reuter P.</p>
+            <p class="pub-journal">The American Journal of Drug and Alcohol Abuse, 51(5), 539–562</p>
+          </div>
+        </div>
+
+        <div class="pub-item reveal" data-type="report">
+          <span class="pub-year">2024</span>
+          <div>
+            <span class="pub-badge report">Research Report</span>
+            <p class="pub-title">Applying Women, Peace, and Security Considerations to a Cross-Border Disaster Response: A Mexico Case Study</p>
+            <p class="pub-authors">Chindea I, Fleming J, <strong>Pérez-Dávila S</strong>, Thompson N.</p>
+            <p class="pub-journal">RAND Corporation, DRR-A2438-2</p>
+          </div>
+        </div>
+
+        <div class="pub-item reveal" data-type="journal">
+          <span class="pub-year">2023</span>
+          <div>
+            <span class="pub-badge">Journal Article</span>
+            <p class="pub-title">Access challenges for patients with limited English proficiency: a secret-shopper study of in-person and telehealth behavioral health services in California safety-net clinics</p>
+            <p class="pub-authors">Uscher-Pines L, Kapinos K, Rodriguez C, <strong>Pérez-Dávila S</strong>, et al.</p>
+            <p class="pub-journal">Health Affairs Scholar, 1(3). doi: 10.1093/haschl/qxad033</p>
+          </div>
+        </div>
+
+        <div class="pub-item reveal" data-type="journal">
+          <span class="pub-year">2023</span>
+          <div>
+            <span class="pub-badge">Journal Article</span>
+            <p class="pub-title">Nine Insights from Ten Years of Legal Cannabis for Nonmedical Purposes</p>
+            <p class="pub-authors">Kilmer B, <strong>Pérez-Dávila S</strong>.</p>
+            <p class="pub-journal">Clinical Therapeutics, 45(6)</p>
+          </div>
+        </div>
+
+        <div class="pub-item reveal" data-type="report">
+          <span class="pub-year">2023</span>
+          <div>
+            <span class="pub-badge report">Research Report</span>
+            <p class="pub-title">Base de datos sobre notas periodísticas acerca de violencia criminal en México</p>
+            <p class="pub-authors">Atuesta LH, <strong>Pérez-Dávila S</strong>, Lara Ramírez M.</p>
+            <p class="pub-journal">CIDE Drug Policy Program</p>
+          </div>
+        </div>
+
+        <div class="pub-item reveal" data-type="report">
+          <span class="pub-year">2021</span>
+          <div>
+            <span class="pub-badge report">Research Report</span>
+            <p class="pub-title">Presencia de los grupos criminales y de las fuerzas de seguridad en el contexto de la pandemia por COVID-19</p>
+            <p class="pub-authors">Atuesta LH, <strong>Pérez-Dávila S</strong>.</p>
+            <p class="pub-journal">CIDE Drug Policy Program</p>
+          </div>
+        </div>
+
+        <div class="pub-item reveal" data-type="journal">
+          <span class="pub-year">2017</span>
+          <div>
+            <span class="pub-badge">Journal Article</span>
+            <p class="pub-title">Fragmentation and Cooperation: The Evolution of Organized Crime in Mexico</p>
+            <p class="pub-authors">Atuesta LH, <strong>Pérez-Dávila S</strong>.</p>
+            <p class="pub-journal">Trends in Organized Crime. doi:10.1007/s12117-017-9301-z</p>
+          </div>
+        </div>
+
+        <div class="pub-item reveal" data-type="report">
+          <span class="pub-year">2017</span>
+          <div>
+            <span class="pub-badge report">Research Report</span>
+            <p class="pub-title">Are Apprenticeships Programs Effective? Lessons for Latin America and the Caribbean</p>
+            <p class="pub-authors">Novella R, <strong>Pérez-Dávila S</strong>.</p>
+            <p class="pub-journal">Inter-American Development Bank Publications</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- POLICY WORK -->
+  <section id="policy">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">03</span>
+        <h2 class="section-title">Policy Work & Affiliations</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="affil-grid">
+        <div class="affil-card reveal">
+          <h3>RAND Corporation</h3>
+          <p class="role">Assistant Policy Researcher</p>
+          <p>Lead researcher on cannabis and opioid markets, firearm policy, and access-to-care. Translates findings into policy-ready briefs for public agencies and donors. Manages Spanish-language field surveys and mixed-methods data pipelines.</p>
+          <p class="dates">October 2021 – Present · Santa Monica, CA</p>
+        </div>
+        <div class="affil-card reveal">
+          <h3>Niskanen Center</h3>
+          <p class="role">Research Fellow</p>
+          <p>Conducts research on drug policy and the effects of policing on crime.</p>
+          <p class="dates">November 2025 – Present</p>
+        </div>
+        <div class="affil-card reveal">
+          <h3>Inter-American Development Bank</h3>
+          <p class="role">Specialist & Independent M&E Consultant</p>
+          <p>Designed cost-benefit analyses, results frameworks, baseline studies, and M&E plans for skills, trade facilitation, and social programs across the Caribbean, Central America, and Mexico. Supported policy dialogue on labor markets and social security reform in the Dominican Republic and The Bahamas. Supervised technical consultancies and advised executing units on data quality, reporting, and indicator design.</p>
+          <p class="dates">2008 – 2016 (Staff) · 2017 – Present (Consultant) · LAC</p>
+        </div>
+        <div class="affil-card reveal">
+          <h3>CIDE Drug Policy Program</h3>
+          <p class="role">Executive Coordinator & Researcher</p>
+          <p>Directed research on drug policy, organized crime, and violence; authored peer-reviewed articles, policy briefs, and book chapters. Delivered lectures on public economics and evaluation methods.</p>
+          <p class="dates">December 2018 – September 2021 · Mexico</p>
+        </div>
+        <div class="affil-card reveal">
+          <h3>Revista Nexos</h3>
+          <p class="role">Editor, Paz y Seguridad Blog</p>
+          <p>Edited and contributed to one of Mexico's leading public policy blogs on security and organized crime, translating academic research into accessible analysis for policymakers and the broader public.</p>
+          <p class="dates">2022 – February 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHING -->
+  <section id="teaching">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">04</span>
+        <h2 class="section-title">Teaching</h2>
+        <div class="section-rule"></div>
+      </div>
+      <div class="teaching-grid">
+        <div class="teaching-block reveal">
+          <h3>Pardee RAND Graduate School</h3>
+          <div class="course-item">
+            <p class="course-title">Advanced Statistics</p>
+            <p class="course-meta">Teaching Assistant · Spring 2023</p>
+          </div>
+        </div>
+        <div class="teaching-block reveal">
+          <h3>CIDE, Drug Policy Program</h3>
+          <div class="course-item">
+            <p class="course-title">Public Economics</p>
+            <p class="course-meta">Instructor · Fall 2019 & Fall 2020 · Undergraduate</p>
+          </div>
+          <div class="course-item">
+            <p class="course-title">Evaluation Methodologies for Drug Policies</p>
+            <p class="course-meta">Instructor · January 2020 & 2021 · Diploma Program</p>
+          </div>
+          <div class="course-item">
+            <p class="course-title">Cannabis Policy in the United States</p>
+            <p class="course-meta">Instructor · January 2023 & 2024 · Diploma Program</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-name">Y. Samantha Pérez-Dávila</p>
+    <div class="footer-links">
+      <a href="mailto:samanthapdavila@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/samantha-perez-davila/" target="_blank">LinkedIn</a>
+      <a href="https://www.rand.org/about/people/p/perez_davila_samantha.html" target="_blank">RAND</a>
+      <a href="Samantha_Perez_Davila_Academic_CV.docx">CV</a>
+    </div>
+  </footer>
+
+  <script>
+    // Publication filter
+    document.querySelectorAll('.pub-filter button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pub-filter button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.pub-item').forEach(item => {
+          if (filter === 'all' || item.dataset.type === filter) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidde
